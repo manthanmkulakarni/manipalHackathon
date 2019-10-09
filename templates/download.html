@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Download files</title>
+    <style>
+        .filenames{
+            padding:10px;
+            background-color: aquamarine;
+            border: 11px solid blueviolet;
+        }
+        .filenames:hover{
+            padding:10px;
+            background-color: rgb(110, 199, 169);
+            border: 11px solid rgb(116, 33, 194);
+        }
+        .card-img{
+            border: 2px solid green;
+            padding:5px;
+        }
+        .card-img:hover{
+            border:2px solid rgb(1, 97, 1);
+            padding:3px;
+        }
+        .cardname{
+            border: 10px solid blue;
+            padding: 10px;
+        }
+        .cardname:hover{
+            border: 10px solid rgb(3, 3, 209);
+            padding: 8px;
+        }
+        
+    </style>
+    <script>
+        var b='{{filelist}}';
+        b=b.replace('[','');
+        b=b.replace(']','');
+        b=b.replace('&#39;','');
+        b=b.split(',');
+        
+       var imageurl1= "<a href=\"{{url_for('static',filename='croppedeye0.jpg')}}\"> <img class=\"card-img\" src=\"{{url_for('static',filename='croppedeye0.jpg')}}\" width=300px height=300px ></a>";
+       var imageurl2= "<a href=\"{{url_for('static',filename='croppedeye1.jpg')}}\"> <img class=\"card-img\" src=\"{{url_for('static',filename='croppedeye1.jpg')}}\" width=300px height=300px></a>";
+       var imageurl3= "<a href=\"{{url_for('static',filename='detection.jpg')}}\"> <img class=\"card-img\" src=\"{{url_for('static',filename='detection.jpg')}}\" width=300px height=300px></a>";
+       var htmlstring="";
+       var htmlcarddes=""
+        function myfunction(){
+            
+            for (var i = 0; i < b.length; i++) {
+                       if(b[i].indexOf('.png')!=-1){
+
+                           b[i]=b[i].slice(6,b[i].length-5);
+                           htmlcarddes=b[i];
+                           htmlstring+=imageurl1;
+                           break;
+                       }
+                       else if(b[i].indexOf('.jpg')!=-1){
+                           b[i]=b[i].slice(6,b[i].length-5);
+                           htmlcarddes=b[i];
+                           htmlstring+=imageurl1;
+                           break;
+                       
+                       }
+                       else if(b[i].indexOf('.jpeg')!=-1){
+                           b[i]=b[i].slice(6,b[i].length-5);
+                           htmlcarddes=b[i];
+                           htmlstring+=imageurl1;
+                           break;
+                       }
+                    }
+                    document.getElementById("myimg").innerHTML=htmlstring;
+                    document.getElementById("mydesc").innerHTML=htmlcarddes;
+        }
+    </script>
+</head>
+<body onload="myfunction()">
+<div align="center">
+    <h1>File downloader</h1>
+    <h2>Download new File</h2>
+    <br>
+    <div  id="cardname" style="{border: 10px solid blue;padding: 10px;} " >
+        <div id="myimg" ></div>
+        <br>
+        <div >
+            <div id="mydesc" ></div>
+        </div>
+    </div>
+    <br>
+    <!--
+    <form method=post enctype=multipart/form-data>
+        <p><input type=file name=file>
+            <input type=submit value=Download>
+        </p>
+    </form>
+   
+  
+  <p id="myId"></p>
+   {% for filename in filelist%}
+   <div class="filenames" id="mybt"onclick="myfunction(filename)"><button >{{filename}}</button></div><br>
+   {% endfor %}
+    </div>  
+</div>
+-->
+</body>
+</html>
